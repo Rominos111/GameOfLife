@@ -7,4 +7,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "queue.h"
+#include "map.h"
+#include "game.h"
+
 #endif //GAMEOFLIFE_MAIN_H

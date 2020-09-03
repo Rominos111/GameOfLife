@@ -4,6 +4,17 @@
 #include "main.h"
 
 int main() {
-    printf("Hello, World!\n");
+    uint8_t grid[5][3] = {
+            {0, 0, 0},
+            {0, 1, 0},
+            {0, 1, 0},
+            {0, 1, 0},
+            {0, 0, 0}
+    };
+
+    Game g = createGame(createMapFromArray(5, 3, grid));
+    displayMap(g.map);
+    deleteGame(&g);
+
     return EXIT_SUCCESS;
 }
