@@ -4,8 +4,8 @@
 #ifndef GAMEOFLIFE_MAIN_H
 #define GAMEOFLIFE_MAIN_H
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <stdint.h> // uint8_t
+#include <stdio.h> // printf, size_t
 
 #include "queue.h"
 #include "map.h"
