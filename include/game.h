@@ -4,6 +4,10 @@
 #ifndef GAMEOFLIFE_GAME_H
 #define GAMEOFLIFE_GAME_H
 
+#include <stdint.h> // uint8_t
+#include <stdio.h> // printf, size_t
+#include <stdlib.h> // malloc, free
+
 #include "map.h"
 #include "queue.h"
 
@@ -25,6 +29,11 @@ typedef struct {
      * Cellules à probablement activer
      */
     Queue toActivate;
+
+    /**
+     * Compteur de frames, pour savoir si les cellules ont été updates ou non
+     */
+    uint8_t frameCount;
 } Game;
 
 /**
@@ -34,7 +43,14 @@ typedef struct {
  *
  * @return Jeu
  */
-Game createGame(Map map);
+void createGame(Game** game, Map map);
+
+/**
+ * Met à jour le jeu
+ *
+ * @param game Jeu
+ */
+void update(Game* game);
 
 /**
  * Supprime un jeu

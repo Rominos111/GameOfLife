@@ -12,9 +12,12 @@ int main() {
             {0, 0, 0}
     };
 
-    Game g = createGame(createMapFromArray(5, 3, grid));
-    displayMap(g.map);
-    deleteGame(&g);
+    Game* g;
+    createGame(&g, createMapFromArray(5, 3, grid));
+    displayMap(g->map);
+    update(g);
+    displayMap(g->map);
+    deleteGame(g);
 
     return EXIT_SUCCESS;
 }
