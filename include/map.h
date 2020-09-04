@@ -4,15 +4,30 @@
 #ifndef GAMEOFLIFE_MAP_H
 #define GAMEOFLIFE_MAP_H
 
-#include <stdlib.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdbool.h>
+#include <stdlib.h> // malloc, free
+#include <stdint.h> // uint8_t
+#include <stdio.h> // printf
+#include <stdbool.h> // bool
+
+/**
+ * Masque pour cellule active au tour précédent
+ */
+#define MASK_ACTIVE_PREVIOUSLY 0x80 // 0b10000000
+
+/**
+ * Masque pour cellule active maintenant
+ */
+#define MASK_ACTIVE_NOW 0x40        // 0b01000000
+
+/**
+ * Masque pour savoir à quand remonte la dernière update
+ */
+#define MASK_LAST_TURN 0x20         // 0b00100000
 
 /**
  * Masque pour le nombre de voisins
  */
-#define MASK_NEIGHBORS 0xf // 0b00001111
+#define MASK_NEIGHBORS 0x0f         // 0b00001111
 
 /**
  * Map
@@ -84,11 +99,33 @@ void setMapValue(Map map, size_t row, size_t col, uint8_t value);
 uint8_t getMapValue(Map map, size_t row, size_t col);
 
 /**
+ * Récupère l'adresse d'une case d'une map
+ *
+ * @param map Map
+ * @param row Ligne
+ * @param col Colonne
+ *
+ * @return Adresse
+ */
+uint8_t* getMapAddress(Map map, size_t row, size_t col);
+
+/**
  * Affiche une map
  *
  * @param map Map
  */
 void displayMap(Map map);
+
+/**
+ * Position valide ou non
+ *
+ * @param map Map
+ * @param row Ligne
+ * @param col Colonne
+ *
+ * @return Valide ou non
+ */
+bool isValidPos(Map map, long row, long col);
 
 /**
  * Cellule active ou non
@@ -99,8 +136,20 @@ void displayMap(Map map);
  *
  * @return Active ou non
  *
- * @see MASK_NEIGHBORS
+ * @see MASK_ACTIVE_NOW
  */
 bool isActive(Map map, size_t row, size_t col);
+
+/**
+ * Adresse d'un voisin selon un pointeur
+ *
+ * @param map Map
+ * @param value Pointeur
+ * @param rowOffset Offset row
+ * @param colOffset Offset col
+ *
+ * @return Pointeur du voisin si position valide, NULL sinon
+ */
+uint8_t* getNeighborAddress(Map map, const uint8_t* value, int8_t rowOffset, int8_t colOffset);
 
 #endif //GAMEOFLIFE_MAP_H

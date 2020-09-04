@@ -16,7 +16,9 @@ Map createMapFromArray(size_t rows, size_t cols, uint8_t array[rows][cols]) {
 
     for (size_t row = 0; row < rows; row++) {
         for (size_t col = 0; col < cols; col++) {
-            setMapValue(m, row, col, array[row][col]);
+            if (array[row][col]) {
+                setMapValue(m, row, col, MASK_ACTIVE_NOW);
+            }
         }
     }
 
@@ -35,6 +37,10 @@ uint8_t getMapValue(Map map, size_t row, size_t col) {
     return map.array[col + row*map.cols];
 }
 
+uint8_t* getMapAddress(Map map, size_t row, size_t col) {
+    return &(map.array[col + row*map.cols]);
+}
+
 void displayMap(Map map) {
     for (size_t row = 0; row < map.rows; row++) {
         for (size_t col = 0; col < map.cols; col++) {
@@ -47,8 +53,27 @@ void displayMap(Map map) {
         }
         printf("\n");
     }
+    printf("\n");
+}
+
+bool isValidPos(Map map, long row, long col) {
+    return row >= 0 && row < (long) map.rows && col >= 0 && col < (long) map.cols;
 }
 
 bool isActive(Map map, size_t row, size_t col) {
-    return getMapValue(map, row, col) & MASK_NEIGHBORS;
+    return getMapValue(map, row, col) & (uint8_t) MASK_ACTIVE_NOW;
+}
+
+uint8_t* getNeighborAddress(Map map, const uint8_t* value, int8_t rowOffset, int8_t colOffset) {
+    const size_t size = map.rows * map.cols;
+    const size_t pos = value - &(map.array[0]);
+    const size_t row = pos / map.cols;
+    const size_t col = pos % map.cols;
+
+    if (isValidPos(map, (long) row + rowOffset, (long) col + colOffset)) {
+        return getMapAddress(map, row + rowOffset, col + colOffset);
+    }
+    else {
+        return NULL;
+    }
 }
