@@ -20,11 +20,31 @@ void createGame(Game** g, Map map) {
 }
 
 void update(Game* game) {
-    uint8_t* value = getMapAddress(game->map, 3, 2);
-    uint8_t* neighbor = getNeighborAddress(game->map, value, 0, 1);
+    Queue active = game->active;
 
-    printf("%p\n", (void*) value);
-    printf("%p\n", (void*) neighbor);
+    while (!isEmpty(active)) {
+        uint8_t* cell = dequeue(&active);
+
+        for (int i=-1; i<=1; i++) {
+            for (int j=-1; j<=1; j++) {
+                if (i == 0 && j == 0) {
+                    continue;
+                }
+
+                uint8_t* neighbor = getNeighborAddress(game->map, cell, i, j);
+
+                if (neighbor == NULL) {
+                    continue;
+                }
+
+                // Applique le masque pour framecount
+                // Ajoute 1 voisin
+                // Si voisin >= 2 on ajoute aux candidats potentiels
+            }
+        }
+    }
+
+    // Bien penser à update cellules actives
 
     game->frameCount++;
 }
