@@ -65,7 +65,6 @@ bool isActive(Map map, size_t row, size_t col) {
 }
 
 uint8_t* getNeighborAddress(Map map, const uint8_t* value, int8_t rowOffset, int8_t colOffset) {
-    const size_t size = map.rows * map.cols;
     const size_t pos = value - &(map.array[0]);
     const size_t row = pos / map.cols;
     const size_t col = pos % map.cols;
