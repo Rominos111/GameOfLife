@@ -130,15 +130,13 @@ bool isValidPos(Map map, long row, long col);
 /**
  * Cellule active ou non
  *
- * @param map Map
- * @param row Ligne
- * @param col Colonne
+ * @param cell Cellule
  *
  * @return Active ou non
  *
  * @see MASK_ACTIVE_NOW
  */
-bool isActive(Map map, size_t row, size_t col);
+bool isActive(uint8_t cell);
 
 /**
  * Adresse d'un voisin selon un pointeur
@@ -151,5 +149,22 @@ bool isActive(Map map, size_t row, size_t col);
  * @return Pointeur du voisin si position valide, NULL sinon
  */
 uint8_t* getNeighborAddress(Map map, const uint8_t* value, int8_t rowOffset, int8_t colOffset);
+
+/**
+ * Récupère le nombre de voisins d'une cellule
+ *
+ * @param cell Cellule
+ *
+ * @return Nombre de voisins
+ */
+uint8_t getNbNeighbors(uint8_t cell);
+
+/**
+ * Set le nombre de voisins
+ *
+ * @param cell Cellule
+ * @param nb Nombre de voisins entre 0 et 15
+ */
+void setNbNeighbors(uint8_t* cell, uint8_t nb);
 
 #endif //GAMEOFLIFE_MAP_H

@@ -44,7 +44,7 @@ uint8_t* getMapAddress(Map map, size_t row, size_t col) {
 void displayMap(Map map) {
     for (size_t row = 0; row < map.rows; row++) {
         for (size_t col = 0; col < map.cols; col++) {
-            if (isActive(map, row, col)) {
+            if (isActive(getMapValue(map, row, col))) {
                 printf("@ ");
             }
             else {
@@ -60,8 +60,8 @@ bool isValidPos(Map map, long row, long col) {
     return row >= 0 && row < (long) map.rows && col >= 0 && col < (long) map.cols;
 }
 
-bool isActive(Map map, size_t row, size_t col) {
-    return getMapValue(map, row, col) & (uint8_t) MASK_ACTIVE_NOW;
+bool isActive(uint8_t cell) {
+    return cell & (uint8_t) MASK_ACTIVE_NOW;
 }
 
 uint8_t* getNeighborAddress(Map map, const uint8_t* value, int8_t rowOffset, int8_t colOffset) {
@@ -75,4 +75,13 @@ uint8_t* getNeighborAddress(Map map, const uint8_t* value, int8_t rowOffset, int
     else {
         return NULL;
     }
+}
+
+uint8_t getNbNeighbors(uint8_t cell) {
+    return cell & (uint8_t) MASK_NEIGHBORS;
+}
+
+void setNbNeighbors(uint8_t* cell, uint8_t nb) {
+    *cell = (*cell) & (uint8_t) (~ (uint8_t) MASK_NEIGHBORS);
+    *cell = (*cell) | (uint8_t) ((uint8_t) MASK_NEIGHBORS & nb);
 }
