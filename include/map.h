@@ -30,6 +30,11 @@
 #define MASK_NEIGHBORS 0x0f         // 0b00001111
 
 /**
+ * Masque de parité framecount
+ */
+#define MASK_PARITY 0x20            // 0b00100000
+
+/**
  * Map
  */
 typedef struct {
@@ -166,5 +171,13 @@ uint8_t getNbNeighbors(uint8_t cell);
  * @param nb Nombre de voisins entre 0 et 15
  */
 void setNbNeighbors(uint8_t* cell, uint8_t nb);
+
+/**
+ * Set la parité d'une cellule
+ *
+ * @param cell Cellule
+ * @param parity Parité
+ */
+void setCellParity(uint8_t* cell, uint8_t parity);
 
 #endif //GAMEOFLIFE_MAP_H

@@ -85,3 +85,12 @@ void setNbNeighbors(uint8_t* cell, uint8_t nb) {
     *cell = (*cell) & (uint8_t) (~ (uint8_t) MASK_NEIGHBORS);
     *cell = (*cell) | (uint8_t) ((uint8_t) MASK_NEIGHBORS & nb);
 }
+
+void setCellParity(uint8_t* cell, uint8_t parity) {
+    if (parity == 0) {
+        *cell = *cell & (uint8_t) (~ (uint8_t) MASK_PARITY);
+    }
+    else {
+        *cell = *cell | (uint8_t) MASK_PARITY;
+    }
+}
