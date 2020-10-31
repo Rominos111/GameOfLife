@@ -23,12 +23,12 @@ typedef struct {
     /**
      * Cellules actives
      */
-    Queue active;
+    Queue* active;
 
     /**
      * Cellules à probablement activer
      */
-    Queue toActivate;
+    Queue* toActivate;
 
     /**
      * Compteur de frames, pour savoir si les cellules ont été updates ou non

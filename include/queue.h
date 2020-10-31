@@ -52,7 +52,7 @@ typedef struct {
  *
  * @return Queue
  */
-Queue createQueue();
+Queue* createQueue();
 
 /**
  * Supprime une Queue

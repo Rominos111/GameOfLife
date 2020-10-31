@@ -3,18 +3,19 @@
 
 #include "queue.h"
 
-Queue createQueue() {
-    return (Queue) {
-        .size = 0,
-        .first = NULL,
-        .last = NULL
-    };
+Queue* createQueue() {
+    Queue* queue = malloc(sizeof(Queue));
+    queue->size = 0;
+    queue->first = NULL;
+    queue->last = NULL;
+    return queue;
 }
 
 void deleteQueue(Queue* queue) {
     while (!isEmpty(*queue)) {
         dequeue(queue);
     }
+    free(queue);
 }
 
 Queue* enqueue(QueueValue item, Queue* queue) {
@@ -54,7 +55,9 @@ QueueValue dequeue(Queue* queue) {
             queue->last = NULL;
         }
 
-        free(node);
+        if (node != NULL) {
+            free(node);
+        }
     }
 
     queue->size --;
