@@ -20,17 +20,12 @@
 #define MASK_ACTIVE_NOW 0x40        // 0b01000000
 
 /**
- * Masque pour savoir à quand remonte la dernière update
- */
-#define MASK_LAST_TURN 0x20         // 0b00100000
-
-/**
  * Masque pour le nombre de voisins
  */
 #define MASK_NEIGHBORS 0x0f         // 0b00001111
 
 /**
- * Masque de parité framecount
+ * Masque de parité framecount, à quand remonte la dernière update
  */
 #define MASK_PARITY 0x20            // 0b00100000
 
@@ -144,6 +139,33 @@ bool isValidPos(Map map, long row, long col);
 bool isActive(uint8_t cell);
 
 /**
+ * Set active ou non
+ *
+ * @param cell Cellule
+ * @param active Active ou non
+ */
+void setActive(uint8_t* cell, bool active);
+
+/**
+ * Cellule anciennement active ou non
+ *
+ * @param cell Cellule
+ *
+ * @return Anciennement active ou non
+ *
+ * @see MASK_ACTIVE_PREVIOUSLY
+ */
+bool wasActive(uint8_t cell);
+
+/**
+ * Set anciennement active ou non
+ *
+ * @param cell Cellule
+ * @param active Anciennement active ou non
+ */
+void setActivePreviously(uint8_t* cell, bool active);
+
+/**
  * Adresse d'un voisin selon un pointeur
  *
  * @param map Map
@@ -173,11 +195,28 @@ uint8_t getNbNeighbors(uint8_t cell);
 void setNbNeighbors(uint8_t* cell, uint8_t nb);
 
 /**
+ * Get la parité d'une cellule
+ *
+ * @param cell Cellule
+ */
+uint8_t getCellParity(uint8_t cell);
+
+/**
  * Set la parité d'une cellule
  *
  * @param cell Cellule
  * @param parity Parité
  */
 void setCellParity(uint8_t* cell, uint8_t parity);
+
+/**
+ * Vérifie la parité d'une cellule
+ *
+ * @param cell Cellule
+ * @param parity Parité
+ *
+ * @return Conforme ou non
+ */
+bool checkCellParity(uint8_t cell, uint8_t parity);
 
 #endif //GAMEOFLIFE_MAP_H

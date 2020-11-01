@@ -64,6 +64,28 @@ bool isActive(uint8_t cell) {
     return cell & (uint8_t) MASK_ACTIVE_NOW;
 }
 
+void setActive(uint8_t* cell, bool active) {
+    if (active) {
+        *cell = *cell | (uint8_t) MASK_ACTIVE_NOW;
+    }
+    else {
+        *cell = *cell & (uint8_t) (~ (uint8_t) MASK_ACTIVE_NOW);
+    }
+}
+
+bool wasActive(uint8_t cell) {
+    return cell & (uint8_t) MASK_ACTIVE_PREVIOUSLY;
+}
+
+void setActivePreviously(uint8_t* cell, bool active) {
+    if (active) {
+        *cell = *cell | (uint8_t) MASK_ACTIVE_PREVIOUSLY;
+    }
+    else {
+        *cell = *cell & (uint8_t) (~ (uint8_t) MASK_ACTIVE_PREVIOUSLY);
+    }
+}
+
 uint8_t* getNeighborAddress(Map map, const uint8_t* value, int8_t rowOffset, int8_t colOffset) {
     const size_t pos = value - &(map.array[0]);
     const size_t row = pos / map.cols;
@@ -86,11 +108,19 @@ void setNbNeighbors(uint8_t* cell, uint8_t nb) {
     *cell = (*cell) | (uint8_t) ((uint8_t) MASK_NEIGHBORS & nb);
 }
 
+uint8_t getCellParity(uint8_t cell) {
+    return cell & (uint8_t) MASK_PARITY;
+}
+
 void setCellParity(uint8_t* cell, uint8_t parity) {
-    if (parity == 0) {
+    if (parity % 2 == 0) {
         *cell = *cell & (uint8_t) (~ (uint8_t) MASK_PARITY);
     }
     else {
         *cell = *cell | (uint8_t) MASK_PARITY;
     }
+}
+
+bool checkCellParity(uint8_t cell, uint8_t parity) {
+    return (uint8_t) (parity % 2 != 0) ^ (uint8_t) (getCellParity(cell) == 0);
 }
