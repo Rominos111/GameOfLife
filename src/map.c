@@ -66,10 +66,10 @@ bool isActive(uint8_t cell) {
 
 void setActive(uint8_t* cell, bool active) {
     if (active) {
-        *cell = *cell | (uint8_t) MASK_ACTIVE_NOW;
+        *cell |= (uint8_t) MASK_ACTIVE_NOW;
     }
     else {
-        *cell = *cell & (uint8_t) (~ (uint8_t) MASK_ACTIVE_NOW);
+        *cell &= (uint8_t) (~ (uint8_t) MASK_ACTIVE_NOW);
     }
 }
 
@@ -79,10 +79,10 @@ bool wasActive(uint8_t cell) {
 
 void setActivePreviously(uint8_t* cell, bool active) {
     if (active) {
-        *cell = *cell | (uint8_t) MASK_ACTIVE_PREVIOUSLY;
+        *cell |= (uint8_t) MASK_ACTIVE_PREVIOUSLY;
     }
     else {
-        *cell = *cell & (uint8_t) (~ (uint8_t) MASK_ACTIVE_PREVIOUSLY);
+        *cell &= (uint8_t) (~ (uint8_t) MASK_ACTIVE_PREVIOUSLY);
     }
 }
 
@@ -104,8 +104,8 @@ uint8_t getNbNeighbors(uint8_t cell) {
 }
 
 void setNbNeighbors(uint8_t* cell, uint8_t nb) {
-    *cell = (*cell) & (uint8_t) (~ (uint8_t) MASK_NEIGHBORS);
-    *cell = (*cell) | (uint8_t) ((uint8_t) MASK_NEIGHBORS & nb);
+    *cell &= (uint8_t) (~ (uint8_t) MASK_NEIGHBORS);
+    *cell |= (uint8_t) ((uint8_t) MASK_NEIGHBORS & nb);
 }
 
 uint8_t getCellParity(uint8_t cell) {
@@ -114,10 +114,10 @@ uint8_t getCellParity(uint8_t cell) {
 
 void setCellParity(uint8_t* cell, uint8_t parity) {
     if (parity % 2 == 0) {
-        *cell = *cell & (uint8_t) (~ (uint8_t) MASK_PARITY);
+        *cell &= (uint8_t) (~ (uint8_t) MASK_PARITY);
     }
     else {
-        *cell = *cell | (uint8_t) MASK_PARITY;
+        *cell |= (uint8_t) MASK_PARITY;
     }
 }
 
